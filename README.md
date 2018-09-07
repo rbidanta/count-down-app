@@ -32,9 +32,11 @@ The Files I worked on are:
 
 *Note:* All the time calculations are done in unix time format i.e. Number of miliseconds passed since 1st January 1970
 
-## Ho to Run the application?
+## How to Run the application?
 
-You would need to have a setup of angular js on your machine to run the application.
+You would need to have a setup of angular js on your machine to run the application. 
+
+![](./images/AngularPlatform.png)
 
 Download the project from github using
 ```
