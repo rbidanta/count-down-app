@@ -9,12 +9,35 @@ import { ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'Count Down App';
+  /**
+   * Binds with the datepicker in the HTML
+   */
   countDownTo: Date;
+  /**
+   * Binds with the days span in HTML
+   */
   days: number;
+  /**
+   * Binds with the hours span in HTML
+   */
   hours: number;
+  /**
+   * Binds with the minute span in HTML
+   */
   minutes: number;
+  /**
+   * Binds with the seconds span in HTML
+   */
   seconds: number;
+  /**
+   * This is function variable to invoke an anonymous function in setInterval()
+   */
   countdown;
+  /**
+   * This holds the selected date in unix time format i.e. Number of miliseconds passed
+   * since 1st January 1970
+   */
+  selecteddate: number;
 
   ngOnInit(){
     this.days = 0;
@@ -28,20 +51,37 @@ export class AppComponent {
    */
   onSelectCountDownToDate(){
       var self = this // Capture the current scope in self variable to be used in anonymous function
-      this.countdown = setInterval(function(){
-      var timenow:number = new Date().getTime();
-      var diff:number = self.countDownTo.getTime() - timenow;
-      self.days = Math.floor(diff/(1000*60*60*24));
-      self.hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-      self.minutes = Math.floor((diff%(1000*60*60))/(1000*60));
-      self.seconds = Math.floor((diff%(1000*60))/(1000));
-      if(diff < 0){
-        clearInterval(self.countdown);
-        self.days = 0;
-        self.hours = 0;
-        self.minutes = 0;
-        self.seconds = 0;
+      
+      if (this.countDownTo instanceof Date){
+        this.selecteddate = this.countDownTo.getTime()
+        this.countdown = setInterval(function(){
+          var timenow:number = new Date().getTime();
+          var timedifference:number = self.selecteddate - timenow;
+          if(timedifference > 0){
+            self.days = Math.floor(timedifference/(1000*60*60*24));
+            self.hours = Math.floor((timedifference%(1000*60*60*24))/(1000*60*60));
+            self.minutes = Math.floor((timedifference%(1000*60*60))/(1000*60));
+            self.seconds = Math.floor((timedifference%(1000*60))/(1000));
+          }
+          else{
+            clearInterval(self.countdown);
+            self.resetElements(self)
+          }
+        },1000);
+      } else{
+        self.selecteddate = 0
+        this.resetElements(self)
       }
-    },1000);
+  }
+
+  /**
+   * Resets the countdown elements to 0Days 0Hours 0Minutes and 0Seconds
+   * @param $scope The scope in which this function will execute
+   */
+  resetElements($scope){
+      $scope.days = 0
+      $scope.hours = 0;
+      $scope.minutes = 0;
+      $scope.seconds = 0;
   }
 }

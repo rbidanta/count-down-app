@@ -1,28 +1,49 @@
-# CountDownApp
+# Count Down Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+I used angularJS to implement this application. The whole project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8. This provided me with the base framework to build the application into it.
 
-## Development server
+For simplicity I used the default app component to implement my application. However for much more complex applications it is recommended to build individual components based on functional requirement.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# What the task is about?
+Build an user interface that counts down to a target date. In order to select a date I used [primeng's](https://www.primefaces.org/primeng/#/setup) datepicker component. 
 
-## Code scaffolding
+Install primeng in the application using the following command:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+npm install primeng --save
+npm install primeicons --save
+```
 
-## Build
+The Files I worked on are:
+* ./count-down-app/src/app/app.component.css Composed of all the styling for the user interface elements in the application
+* ./count-down-app/src/app/app.component.html: Contains the layout of the user interface
+* ./count-down-app/src/app/app.component.ts: Contains the logic of count down application
+* ./count-down-app/src/app/app.module.ts: Contains the dependencies and modules used for the application
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## The Approach:
 
-## Running unit tests
+1. Have the user select a date from the date picker
+2. Upon date selection. The date is injected from the HTML page to the typescript app component. The datepicker has a onchange angular event which then triggers the onSelectCountDownToDate().
+3. This function then triggers a function at an interval of 1000 miliseconds.
+4. The function triggered in step 3 finds the difference between current time and date to which counting is being done.
+5. If the difference is greater than 0 then calculation for days, hours, minutes and seconds are done and the user interface elements are updated every 1 second
+6. If the difference is less than 0 then day, hour, minutes and seconds are reset to 0
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+*Note:* All the time calculations are done in unix time format i.e. Number of miliseconds passed since 1st January 1970
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Ho to Run the application?
 
-## Further help
+You would need to have a setup of angular js on your machine to run the application.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-# count-down-app
+Download the project from github using
+```
+git clone https://github.com/rbidanta/count-down-app.git
+```
+
+Browse to the count-down-app directory and 
+Run `ng serve` for a dev server. 
+
+Navigate to `http://localhost:4200/`
+
+
